@@ -45,9 +45,8 @@ public class AntColonyTest {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         dataset.addValue(1, "row1", "col1");
         dataset.addValue(2, "row1", "col2");
-        DefaultCategoryDataset dataset2 = new DefaultCategoryDataset();
-        dataset2.addValue(3, "row1", "col1");
-        dataset2.addValue(6, "row1", "col2");
+        dataset.addValue(3, "row2", "col1");
+        dataset.addValue(6, "row2", "col2");
 
         JFreeChart chart = ChartFactory.createLineChart(
                 "Example",
@@ -57,7 +56,9 @@ public class AntColonyTest {
                 PlotOrientation.VERTICAL,
                 false, true, false
         );
+
         ChartFrame chartFrame = new ChartFrame("Test", chart);
+
         chartFrame.pack();
         chartFrame.setVisible(true);
     }

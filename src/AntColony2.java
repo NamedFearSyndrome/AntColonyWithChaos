@@ -33,6 +33,8 @@ public class AntColony2 {
     double alpha = 1.5;
     double beta = 2;
 
+    ArrayList<List<Double>> timeData = new ArrayList<>();
+
     ArrayList<Double> AntColony(int task){
         taskNum = task;
         tasks = initRandomArray(taskNum, taskLengthMin, taskLengthMax);
