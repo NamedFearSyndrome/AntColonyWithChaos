@@ -5,11 +5,11 @@ import java.util.Random;
 
 public class AntColony {
     //int taskNum = 100;
-    int taskNum = 10;
+    int taskNum = 100;
     ArrayList<Double> tasks = new ArrayList<>();
 
     //int nodeNum = 10;
-    int nodeNum = 5;
+    int nodeNum = 10;
     ArrayList<Double> nodes = new ArrayList<>();
 
     int taskLengthMin = 10;
@@ -36,30 +36,30 @@ public class AntColony {
     double q = 1.5;
 
     int mode = 0;
-    ArrayList<Double> AntColony(int mode){
+    AntColony(){
         tasks = initRandomArray(taskNum, taskLengthMin, taskLengthMax);
         nodes = initRandomArray(nodeNum, nodeSpeedMin, nodeSpeedMax);
-        aca(mode);
-        int i = 0;
-        //输出迭代至最优解的最小迭代次数
-        for(i = 0; i < iteratorNum; ++i){
-            double temp = resultData.get(i).get(0);
-            boolean flag = true;
-            for(int j = 1; j < resultData.get(i).size(); ++j){
-                if(resultData.get(i).get(j) != temp){
-                    flag = false;
-                    break;
-                }
-            }
-            if(flag){
-                //test
-                //System.out.println(1);
-                break;
-            }
-            else{
-                continue;
-            }
-        }
+        aca();
+//        int i = 0;
+//        //输出迭代至最优解的最小迭代次数
+//        for(i = 0; i < iteratorNum; ++i){
+//            double temp = resultData.get(i).get(0);
+//            boolean flag = true;
+//            for(int j = 1; j < resultData.get(i).size(); ++j){
+//                if(resultData.get(i).get(j) != temp){
+//                    flag = false;
+//                    break;
+//                }
+//            }
+//            if(flag){
+//                //test
+//                //System.out.println(1);
+//                break;
+//            }
+//            else{
+//                continue;
+//            }
+//        }
         //test 输出最短时间
         //System.out.println(resultData.get(i).get(0));
 //        for(List<Double> row : resultData){
@@ -68,23 +68,29 @@ public class AntColony {
 //            }
 //            System.out.println("\n");
 //        }
-        ArrayList<Double> res = new ArrayList<Double>();
-        res.add((double)i);
+//        ArrayList<Double> res = new ArrayList<Double>();
+//        res.add((double)i);
         //res.add(1.0);
-        if(i >= iteratorNum){
-            System.out.println(i);
-            res.add(0.0);
+//        if(i >= iteratorNum){
+//            System.out.println(i);
+//            res.add(0.0);
+//        }
+//        else res.add(resultData.get(i).get(0));
+//
+//        return res;
+        for(List<Double> row : resultData){
+            for(Double n : row){
+                System.out.println(n);
+            }
+            System.out.println("\n");
         }
-        else res.add(resultData.get(i).get(0));
-
-        return res;
     }
-    void aca(int mode){
+    void aca(){
         initTimeMatrix();
         initPheromoneMatrix();
-        acaSearch(mode);
+        acaSearch();
     }
-    private void acaSearch(int mode){
+    private void acaSearch(){
         for(int itCount = 0; itCount < iteratorNum; ++itCount){
             ArrayList<List<List<Integer>>> pathMatrix_allAnt = new ArrayList<>();
             for(int antCount = 0; antCount < antNum; ++antCount){
@@ -98,15 +104,15 @@ public class AntColony {
             ArrayList<Double> timeArray_oneIt = callTime_oneIt(pathMatrix_allAnt);
             //timeArray_oneIt.add((double)itCount);
             resultData.add(timeArray_oneIt);
-
-            switch (mode){
-                case 0:
-                    updatePheromoneMatrix(pathMatrix_allAnt, timeArray_oneIt);
-                case 1:
-                    updatePheromoneMatrixChaos(pathMatrix_allAnt, timeArray_oneIt);
-                default:
-                    updatePheromoneMatrix(pathMatrix_allAnt, timeArray_oneIt);
-            }
+            updatePheromoneMatrix(pathMatrix_allAnt, timeArray_oneIt);
+//            switch (mode){
+//                case 0:
+//                    updatePheromoneMatrix(pathMatrix_allAnt, timeArray_oneIt);
+//                case 1:
+//                    updatePheromoneMatrixChaos(pathMatrix_allAnt, timeArray_oneIt);
+//                default:
+//                    updatePheromoneMatrix(pathMatrix_allAnt, timeArray_oneIt);
+//            }
         }
     }
     void updatePheromoneMatrixChaos(ArrayList<List<List<Integer>>> pathMatrix_allAnt, ArrayList<Double> timeArray_oneIt){
